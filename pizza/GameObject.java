@@ -1,6 +1,8 @@
 package pizza;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.util.ArrayList;
 
 public abstract class GameObject {
     private int x, y, width, height;
@@ -145,7 +147,7 @@ public abstract class GameObject {
      * Use displayHitBox() to visually see the hit box of a GameObject
      * @param object
      * @see pizza.Pizza.displayHitBox
-     * @return
+     * @return true if touching, false otherwise
      */
     public boolean isTouching(GameObject object) {
         /*
@@ -160,6 +162,42 @@ public abstract class GameObject {
         }
 
         return true;
+    }
+
+    /**
+     * Returns an array of points of the quickest path to a point
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @return array of Point objects
+     * @see java.awt.Point
+     */
+    public Point[] getLine(int x1, int y1, int x2, int y2) {
+        ArrayList<Point> points = new ArrayList<Point>();
+        int dx = x2 - x1;
+        int dy = y2 - y1;
+        
+        int steps = Math.abs(dx) > Math.abs(dy) ? Math.abs(dx) : Math.abs(dy);
+        
+        float Xinc = dx / (float) steps;
+        float Yinc = dy / (float) steps;
+        
+        float x = x1;
+        float y = y1;
+        for (int i = 0; i <= steps; i++)
+        {
+            points.add(new Point(Math.round(x), Math.round(y)));
+            x += Xinc;
+            y += Yinc;
+        }
+
+        Point[] newPoints = new Point[points.size()];
+        for (int i = 0; i < newPoints.length; i++) {
+            newPoints[i] = points.get(i);
+        }
+
+        return newPoints;
     }
 
     /**
