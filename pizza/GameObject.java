@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 public abstract class GameObject {
     private int x, y, width, height;
+    private double velocity = 0, acceleration = 1;
+    private int preX, preY;
+    private boolean dragging = false;
 
     public GameObject() {
         x = 100;
@@ -205,6 +208,63 @@ public abstract class GameObject {
         }
 
         return newPoints;
+    }
+
+    /**
+     * Updates the GameObject as if there is a gravitational force towards the bottom on the screen.
+     * It is recommended to use this method in the update method
+     */
+    public void runGravity() {
+        if (getY() < Window.HEIGHT - getHeight()) {
+            setY((int) Math.round(getY() + velocity));
+            velocity += acceleration;
+        } else {
+            setY(Window.HEIGHT - getHeight());
+            velocity = 0;
+        }
+    }
+
+    /**
+     * Changes the velocity of the GameObject.
+     * Only takes effect if <code>runGravity()</code> is run
+     * @param velocity
+     * @see pizza.GameObject.runGravity
+     */
+    public void setVelocity(double velocity) {
+        this.velocity = velocity;
+    }
+
+    /**
+     * Changes the acceleration of the GameObject.
+     * Only takes effect if <code>runGravity()</code> is run
+     * @param acceleration
+     * @see pizza.GameObject.runGravity
+     */
+    public void setAcceleration(double acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public void draggable() {
+        if (isPressed()) {
+            preX = Mouse.getX() - getX();
+            preY = Mouse.getY() - getY();
+        }
+
+        if (isDragged()) {
+            setX(Mouse.getX() - preX);
+            setY(Mouse.getY() - preY);
+            dragging = true;
+            velocity = 0;
+        }
+
+        if (Mouse.getMouseState().equals("Released")) {
+            dragging = false;
+        }
+
+        if (dragging) {
+            setX(Mouse.getX() - preX);
+            setY(Mouse.getY() - preY);
+        }
     }
 
     /**

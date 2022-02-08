@@ -74,7 +74,7 @@ public class Pizza implements Runnable{
         }
         Graphics g = bs.getDrawGraphics();
         g.setColor(backgroundColor);
-        g.fillRect(0, 0, w.WIDTH + 10, w.HEIGHT);
+        g.fillRect(0, 0, Window.WIDTH + 10, Window.HEIGHT);
         Handler.draw(g);
         g.dispose();
         bs.show();

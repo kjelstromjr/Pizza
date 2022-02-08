@@ -7,7 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Window {
-    public int WIDTH, HEIGHT;
+    public static int WIDTH, HEIGHT;
     public JFrame frame;
     
     public Window() {

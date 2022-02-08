@@ -1,8 +1,8 @@
 package Game;
 import java.awt.Color;
 import java.awt.Graphics;
-
 import pizza.GameObject;
+import pizza.Window;
 
 public class Food extends GameObject {
 
@@ -16,8 +16,8 @@ public class Food extends GameObject {
 
     // Moves the food to a random, new location
     public void createNew() {
-        int x = (int) (Math.random() * Game.game.w.WIDTH + 10);
-        int y = (int) (Math.random() * Game.game.w.HEIGHT + 60);
+        int x = (int) (Math.random() * Window.WIDTH + 10);
+        int y = (int) (Math.random() * Window.HEIGHT + 60);
         setX(x);
         setY(y);
     }
