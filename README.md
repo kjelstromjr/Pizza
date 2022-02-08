@@ -1,7 +1,7 @@
 # Pizza
 Simple game engine for java programs
 ## **WARNING** 
-A good enough knowledge in the java programming language is required in order to use and understand this package!!! If you DO NOT know java, and still want to use this, then you are a total dingus and need to learn java. If you DO know java, welcome to the github bro!
+A good enough knowledge in the java programming language is required in order to use and understand this package!!! If you DO NOT know java, and still want to use this, then you are a total dingus and need to learn java. If you DO know java, welcome to the github!
 ## Getting Started
 **Examples are provided in the Intro and Game directories**
 - The entire game engine can be started just by simply creating an instance of the `Pizza` class, e.g. `Pizza game = new Pizza();`
