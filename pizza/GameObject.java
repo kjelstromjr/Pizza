@@ -142,6 +142,20 @@ public abstract class GameObject {
     }
 
     /**
+     * Returns a boolean based on if the mouse was released over the GameObject
+     * @return boolean isReleased
+     */
+    public boolean isReleased() {
+        int x = Mouse.getX();
+        int y = Mouse.getY();
+        if (x > getX() && x < getX() + getWidth() && y > getY() && y < getY() + getHeight() && Mouse.getMouseState().equals("Released")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Checks if GameObject is intersecting another GameObject
      * by generating a "hit box" for each object.
      * Use displayHitBox() to visually see the hit box of a GameObject
@@ -150,13 +164,6 @@ public abstract class GameObject {
      * @return true if touching, false otherwise
      */
     public boolean isTouching(GameObject object) {
-        /*
-        if (getX() > object.getX() && getX() < object.getX() + object.getWidth() && getY() > object.getY() && getY() < object.getY() + object.getHeight()) {
-            return true;
-        }
-        return false;
-        */
-
         if (getX() > object.getX() + object.getWidth() || getX() + getWidth() < object.getX() || getY() > object.getY() + object.getHeight() || getY() + getHeight() < object.getY()) {
             return false;
         }

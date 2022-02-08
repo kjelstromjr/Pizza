@@ -8,17 +8,16 @@ import java.awt.image.BufferStrategy;
 public class Pizza implements Runnable{
 
     static JFrame frame;
-    Thread thread;
+    public static Thread thread;
     boolean running;
     public Window w;
     Color backgroundColor = Color.BLACK;
-    private int tickSpeed = 10;
+    private int tickSpeed = 2;
     boolean key = false;
     
     public Pizza() {
         w = new Window();
         frame = w.frame;
-        //Key key = new Key(frame);
         start();
     }
 
@@ -26,6 +25,18 @@ public class Pizza implements Runnable{
         w = new Window();
         frame = w.frame;
         this.backgroundColor = backgroundColor;
+        start();
+    }
+
+    public Pizza(boolean fullScreen) {
+        w = new Window(true);
+        frame = w.frame;
+        start();
+    }
+
+    public Pizza(Color backgroundColor, boolean fullScreen) {
+        w = new Window(true);
+        frame = w.frame;
         start();
     }
 

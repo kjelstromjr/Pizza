@@ -6,6 +6,7 @@ import java.awt.Color;
 
 public class Handler {
     static LinkedList<GameObject> objects = new LinkedList<GameObject>();
+    static LinkedList<GameObject> remove = new LinkedList<GameObject>();
     static boolean displayHitBox = false;
 
     public static void update() {
@@ -22,6 +23,10 @@ public class Handler {
                 g.drawRect(object.getX(), object.getY(), object.getWidth(), object.getHeight());
             }
         }
+
+        for (int i = 0; i < remove.size(); i++) {
+            objects.remove(remove.get(i));
+        }
     }
 
     public static void addObject(GameObject object) {
@@ -29,7 +34,7 @@ public class Handler {
     }
 
     public static void removeObject(GameObject object) {
-        objects.remove(object);
+        remove.add(object);
     }
 
     public static void displayHitBox(boolean display) {

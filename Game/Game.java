@@ -18,7 +18,7 @@ public class Game {
         game.addObject(food);
         game.addObject(counter);
         // Puts a blue box around all objects that is used for other events like intersection and mouse events
-        game.displayHitBox(true);
+        //game.displayHitBox(true);
     }
 
     public static void main(String[] args) {
