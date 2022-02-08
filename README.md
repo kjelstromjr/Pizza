@@ -15,6 +15,7 @@ A good enough knowledge in the java programming language is required in order to
 - Window height and width can now be accessed statically
 - Added `runGravity()` to GameObject
 - Added `draggable()` to GameObject
+- See Gravity for an example
 ## Older Updates
 **2/7/2022**
 - Added `isReleased()` to `GameObject.java`
