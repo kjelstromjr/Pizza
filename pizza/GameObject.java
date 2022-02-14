@@ -9,6 +9,11 @@ public abstract class GameObject {
     private double velocity = 0, acceleration = 1;
     private int preX, preY;
     private boolean dragging = false;
+    private int blockX = 0;
+    private int blockY = 0;
+    private boolean imapacted = false;
+    private boolean landed = false;
+    private boolean movable = true;
 
     public GameObject() {
         x = 100;
@@ -61,7 +66,9 @@ public abstract class GameObject {
      * @param x
      */
     public void setX(int x) {
-        this.x = x;
+        if (!((x < getX() && blockX == -1) || (x > getX() && blockX == 1)) && movable) {
+            this.x = x;
+        }
     }
 
     /**
@@ -69,7 +76,9 @@ public abstract class GameObject {
      * @param y
      */
     public void setY(int y) {
-        this.y = y;
+        if (!((y < getY() && blockY == -1) || (y > getY() && blockY == 1)) && movable) {
+            this.y = y;
+        }
     }
 
     /**
@@ -215,12 +224,16 @@ public abstract class GameObject {
      * It is recommended to use this method in the update method
      */
     public void runGravity() {
-        if (getY() < Window.HEIGHT - getHeight()) {
+        if (getY() < Window.HEIGHT - getHeight() && !landed) {
             setY((int) Math.round(getY() + velocity));
             velocity += acceleration;
         } else {
-            setY(Window.HEIGHT - getHeight());
-            velocity = 0;
+            if (landed) {
+                velocity = 0;
+            } else {
+                setY(Window.HEIGHT - getHeight());
+                velocity = 0;
+            }
         }
     }
 
@@ -244,6 +257,9 @@ public abstract class GameObject {
         this.acceleration = acceleration;
     }
 
+    /**
+     * Allows for the GameObject to be moved and dragged around the screen by the cursor
+     */
     public void draggable() {
         if (isPressed()) {
             preX = Mouse.getX() - getX();
@@ -264,7 +280,85 @@ public abstract class GameObject {
         if (dragging) {
             setX(Mouse.getX() - preX);
             setY(Mouse.getY() - preY);
+            velocity = 0;
         }
+    }
+
+    /**
+     * Makes a GameObject impactable.
+     * GameObjects that are impactable cannot go through eachother
+     */
+    public void impactable() {
+        if (!imapacted) {
+            Handler.addImpact(this);
+            imapacted = true;
+        }
+    }
+
+    /**
+     * Removes the "impactablility" of the GameObject
+     */
+    public void notImpactable() {
+        if (imapacted) {
+            Handler.removeImpact(this);
+            imapacted = false;
+        }
+    }
+
+    /**
+     * Makes an object able to move
+     */
+    public void movable() {
+        movable = true;
+    }
+
+    /**
+     * Makes an object unable to move
+     */
+    public void immovable() {
+        movable = false;
+    }
+
+    protected void checkImpact(ArrayList<GameObject> objects) {
+        for (GameObject object : objects) {
+            if (isTouching(object) && object != this) {
+                if (getY() + getHeight() <= object.getY() || getY() >= object.getY() + object.getHeight()) {
+                    if (getY() + getHeight() <= object.getY()) {
+                        blockY = 1;
+                        blockX = 0;
+                        velocity = 0;
+                        landed = true;
+                    }
+                    if (getY() >= object.getY() + object.getHeight()) {
+                        blockY = -1;
+                        blockX = 0;
+                    }
+                } else if (getX() + getWidth() <= object.getX() || getX() >= object.getX() + object.getWidth()) {
+                    if (getX() + getWidth() <= object.getX()) {
+                        blockX = 1;
+                        blockY = 0;
+                    }
+                    if (getX() >= object.getX() + getWidth()) {
+                        blockX = -1;
+                        blockY = 0;
+                    }
+                } else {
+                    setY(object.getY() - getHeight());
+                    velocity = 0;
+                    landed = true;
+                }
+            }
+
+            if (!isTouching(object) && object != this) {
+                blockX = 0;
+                blockY = 0;
+                landed = false;
+            }
+        }
+    }
+
+    public boolean isLanded() {
+        return landed;
     }
 
     /**
@@ -274,7 +368,7 @@ public abstract class GameObject {
     public abstract void update();
 
     /**
-     * Use methods in the Graphics g object to draw the GameObject onto the JFrame.\n
+     * Use methods in the Graphics g object to draw the GameObject onto the JFrame.
      * Make sure that java.awt.Graphics is imported.
      * Automatically run by engine.
      * @param g
