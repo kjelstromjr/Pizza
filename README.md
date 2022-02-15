@@ -11,6 +11,7 @@ A good enough knowledge in the java programming language is required in order to
   - GameObject objects require an `update()` and `draw()` method
   - GameObjects can be created solo, like shown in Intro, or can be extended by another class, like shown in Game
   - In order for objects to be updated and drawn, they must be added to the game using `[yourgame].addObject(GameObject object);`
+- Don't forget to ask any questions that you may have in the discussions!
 ## Update: 2/14/2022
 - Added impact methods (`impactable()` and `notImpactable()`)
   - Methods are implemented similar to `runGravity()` and `draggable()`
