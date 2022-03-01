@@ -1,20 +1,19 @@
 package pizza;
 
-import java.awt.Graphics;
-import java.awt.Color;
+import java.awt.*;
 import javax.swing.JFrame;
 import java.awt.image.BufferStrategy;
 
-public class Pizza implements Runnable{
+public class Pizza{
 
     static JFrame frame;
-    public static Thread thread;
+    public static Thread tickThread, drawThread;
     boolean running;
     public Window w;
     Color backgroundColor = Color.BLACK;
-    private int tickSpeed = 2;
+    private int tickSpeed = (int) (1000 / 60.0);
     boolean key = false;
-    
+
     public Pizza() {
         w = new Window();
         frame = w.frame;
@@ -41,11 +40,44 @@ public class Pizza implements Runnable{
     }
 
     public synchronized void start() {
+        running = true;
+        draw();
+        drawThread = new Thread(() -> {
+            while (running) {
+                try {
+                    drawThread.sleep((long)tickSpeed);
+                    this.draw();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        tickThread = new Thread(() -> {
+            while (running) {
+                try {
+                    tickThread.sleep((long)tickSpeed / 2);
+                    if (key) {
+                        Key.updateKeys();
+                    }
+                    this.update();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        drawThread.start();
+        tickThread.start();
+
+        /*
         thread = new Thread(this);
         thread.start();
         running = true;
+        */
     }
 
+    /*
     @Override
     public void run() {
         while (running) {
@@ -61,6 +93,8 @@ public class Pizza implements Runnable{
             }
         }
     }
+    */
+
 
     public void update() {
         Handler.update();
