@@ -24,7 +24,7 @@ public class Window {
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                Pizza.thread.interrupt();
+                Pizza.drawThread.interrupt();
                 System.exit(0);
             }
         });
@@ -45,7 +45,7 @@ public class Window {
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                Pizza.thread.interrupt();
+                Pizza.drawThread.interrupt();
                 System.exit(0);
             }
         });
