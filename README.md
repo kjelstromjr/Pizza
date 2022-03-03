@@ -11,6 +11,7 @@ A good enough knowledge in the java programming language is required in order to
   - GameObject objects require an `update()` and `draw()` method
   - GameObjects can be created solo, like shown in Intro, or can be extended by another class, like shown in Game
   - In order for objects to be updated and drawn, they must be added to the game using `[yourgame].addObject(GameObject object);`
+  - Don't forget to ask any questions that you may have in the discussions!
 ## Update: 3/3/2022
 - Added Operators
   - Operators are similar to GameObjects except that that do not have a draw method. Operators can be used to run logic that isn't necessarily connected to one GameObject.
