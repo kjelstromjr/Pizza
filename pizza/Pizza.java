@@ -5,14 +5,14 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import java.awt.image.BufferStrategy;
 
-public class Pizza implements Runnable{
+public class Pizza implements Runnable {
 
     static JFrame frame;
     public static Thread thread;
     boolean running;
     public Window w;
     Color backgroundColor = Color.BLACK;
-    private int tickSpeed = 2;
+    private int tickSpeed = 1;
     boolean key = false;
     
     public Pizza() {
@@ -44,6 +44,10 @@ public class Pizza implements Runnable{
         thread = new Thread(this);
         thread.start();
         running = true;
+    }
+
+    public synchronized void stop() {
+        running = false;
     }
 
     @Override
@@ -93,6 +97,22 @@ public class Pizza implements Runnable{
      */
     public void removeObject(GameObject object) {
         Handler.removeObject(object);
+    }
+
+    /**
+     * Adds an Operator to the Handler
+     * @param operator
+     */
+    public void addOperator(Operator operator) {
+        Handler.addOperator(operator);
+    }
+
+    /**
+     * Removes an Operator from the Handler
+     * @param operator
+     */
+    public void removeOperator(Operator operator) {
+        Handler.removeOperator(operator);
     }
 
     /**

@@ -11,10 +11,15 @@ A good enough knowledge in the java programming language is required in order to
   - GameObject objects require an `update()` and `draw()` method
   - GameObjects can be created solo, like shown in Intro, or can be extended by another class, like shown in Game
   - In order for objects to be updated and drawn, they must be added to the game using `[yourgame].addObject(GameObject object);`
-## Update: 2/14/2022
+## Update: 3/3/2022
+- Added Operators
+  - Operators are similar to GameObjects except that that do not have a draw method. Operators can be used to run logic that isn't necessarily connected to one GameObject.
+- Added `stop()` to `Pizza.java`
+- Changed default tick speed to 1 (was 2)
+## Older Updates
+**2/14/2022**
 - Added impact methods (`impactable()` and `notImpactable()`)
   - Methods are implemented similar to `runGravity()` and `draggable()`
-## Older Updates
 **2/8/2022**
 - Window height and width can now be accessed statically
 - Added `runGravity()` to GameObject
