@@ -21,14 +21,15 @@ A good enough knowledge in the java programming language is required in order to
 **2/14/2022**
 - Added impact methods (`impactable()` and `notImpactable()`)
   - Methods are implemented similar to `runGravity()` and `draggable()`
+
 **2/8/2022**
 - Window height and width can now be accessed statically
 - Added `runGravity()` to GameObject
 - Added `draggable()` to GameObject
 - See Gravity for an example
+
 **2/7/2022**
 - Added `isReleased()` to `GameObject.java`
 - Updated the delete function of the game handler
 - Changed default tick speed to 2 (was 10)
 - Added new constructors to `Pizza.java` to allow for fullscreen
-- hello
