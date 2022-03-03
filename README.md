@@ -31,3 +31,4 @@ A good enough knowledge in the java programming language is required in order to
 - Updated the delete function of the game handler
 - Changed default tick speed to 2 (was 10)
 - Added new constructors to `Pizza.java` to allow for fullscreen
+- hello
