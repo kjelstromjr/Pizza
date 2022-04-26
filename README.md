@@ -14,7 +14,7 @@ A good enough knowledge in the java programming language is required in order to
   - Don't forget to ask any questions that you may have in the discussions!
 ## Update: 3/3/2022
 - Added Operators
-  - Operators are similar to GameObjects except that that do not have a draw method. Operators can be used to run logic that isn't necessarily connected to one GameObject.
+  - Operators are similar to GameObjects except that they do not have a draw method. Operators can be used to run logic that isn't necessarily connected to one GameObject.
 - Added `stop()` to `Pizza.java`
 - Changed default tick speed to 1 (was 2)
 ## Older Updates
