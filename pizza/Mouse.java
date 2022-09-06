@@ -1,3 +1,10 @@
+/**
+ * This file includes all constructors and methods for handling mouse inputs
+ * 
+ * @author Jeffrey Kjelstrom
+ * @version September 6, 2022
+ */
+
 package pizza;
 
 import java.awt.event.MouseEvent;
@@ -9,6 +16,9 @@ public class Mouse extends MouseAdapter {
   private static int x, y;
   private static boolean released = true;
 
+  /**
+   * Default contructor
+   */
   public Mouse() {
     //System.out.println("Mouse Object Made!");
   }

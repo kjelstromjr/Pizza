@@ -1,3 +1,10 @@
+/**
+ * This file includes all methods for handling GameObjects and Operators
+ * 
+ * @author Jeffrey Kjelstrom
+ * @version September 6, 2022
+ */
+
 package pizza;
 
 import java.util.ArrayList;
@@ -13,6 +20,9 @@ public class Handler {
     static ArrayList<Operator> removeOperators = new ArrayList<Operator>();
     static boolean displayHitBox = false;
 
+    /**
+     * Updates all GameObjects and Operators
+     */
     public static void update() {
         for (GameObject object : objects) {
             object.update();
@@ -27,6 +37,10 @@ public class Handler {
         }
     }
 
+
+    /**
+     * Draws all GameObjects
+     */
     public static void draw(Graphics g) {
         for (GameObject object : objects) {
             object.draw(g);
@@ -53,30 +67,64 @@ public class Handler {
         removeOperators.clear();
     }
 
+    /**
+     * Adds GameObject to Handler object list
+     * @param object GameObject to be added
+     */
     public static void addObject(GameObject object) {
         objects.add(object);
     }
 
+    /**
+     * Removes GameObject from Handler object list
+     * <p>
+     * Gets removed after updating and drawing
+     * @param object GameObject to be removed
+     */
     public static void removeObject(GameObject object) {
         remove.add(object);
     }
 
+    /**
+     * Adds GameObject to Handler impact list
+     * @param object GameObject to be added
+     */
     public static void addImpact(GameObject object) {
         impact.add(object);
     }
 
+    /**
+     * Removes GameObject from Handler impact list
+     * <p>
+     * Gets removed after updating and drawing
+     * @param object GameObject to be removed
+     */
     public static void removeImpact(GameObject object) {
         removeImpact.add(object);
     }
 
+    /**
+     * Adds Operator to Handler operator list
+     * @param object Operator to be added
+     */
     public static void addOperator(Operator operator) {
         operators.add(operator);
     }
 
+    /**
+     * Removes Operator from Handler operator list
+     * <p>
+     * Gets removed after updating and drawing
+     * @param object Operator to be removed
+     */
     public static void removeOperator(Operator operator) {
         removeOperators.add(operator);
     }
 
+    /**
+     * Changes state of whether or not hit boxes are displayed
+     * @param display {@code true} display, {@code false} remove
+     */
     public static void displayHitBox(boolean display) {
         displayHitBox = display;
     }

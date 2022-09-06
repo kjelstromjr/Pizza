@@ -1,3 +1,10 @@
+/**
+ * This is the main class for the Pizza game engine. This includes constructors and methods associated with the main game
+ * 
+ * @author Jeffrey Kjelstrom
+ * @verison September 6, 2022
+ */
+
 package pizza;
 
 import java.awt.Graphics;
@@ -15,12 +22,19 @@ public class Pizza implements Runnable {
     private int tickSpeed = 1;
     boolean key = false;
     
+    /**
+     * Default constructor
+     */
     public Pizza() {
         w = new Window();
         frame = w.frame;
         start();
     }
 
+    /**
+     * Constructor for changing the background color
+     * @param backgroundColor
+     */
     public Pizza(Color backgroundColor) {
         w = new Window();
         frame = w.frame;
@@ -28,28 +42,46 @@ public class Pizza implements Runnable {
         start();
     }
 
+    /**
+     * Constructor for putting the game into fullscreen
+     * @param fullScreen
+     */
     public Pizza(boolean fullScreen) {
         w = new Window(true);
         frame = w.frame;
         start();
     }
 
+    /**
+     * Constructor for putting the game into fullscreen and changing the background color
+     * @param backgroundColor
+     * @param fullScreen
+     */
     public Pizza(Color backgroundColor, boolean fullScreen) {
         w = new Window(true);
         frame = w.frame;
         start();
     }
 
+    /**
+     * Starts the game by adding it to a new Thread and starting the game loop
+     */
     public synchronized void start() {
         thread = new Thread(this);
         thread.start();
         running = true;
     }
 
+    /**
+     * Ends the game loop
+     */
     public synchronized void stop() {
         running = false;
     }
 
+    /**
+     * Runs the main game loop
+     */
     @Override
     public void run() {
         while (running) {
@@ -66,10 +98,16 @@ public class Pizza implements Runnable {
         }
     }
 
+    /**
+     * Updates all GameObjects and Operators stored in the Handler
+     */
     public void update() {
         Handler.update();
     }
 
+    /**
+     * Draws all GameObjects stored in the handler
+     */
     public void draw() {
         BufferStrategy bs = w.frame.getBufferStrategy();
         if (bs == null) {

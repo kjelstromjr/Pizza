@@ -1,5 +1,13 @@
+/**
+ * This file includes all constructors and methods for the GameOject class
+ * 
+ * @author Jeffrey Kjelstrom
+ * @version September 6, 2022
+ */
+
 package pizza;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -14,7 +22,13 @@ public abstract class GameObject {
     private boolean imapacted = false;
     private boolean landed = false;
     private boolean movable = true;
+    private boolean touching = false;
 
+    /**
+     * Default constructor
+     * <p>
+     * x = 100, y = 100, width = 50, height = 50
+     */
     public GameObject() {
         x = 100;
         y = 100;
@@ -22,6 +36,13 @@ public abstract class GameObject {
         height = 50;
     }
 
+    /**
+     * Custom contructor for GameObject
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     */
     public GameObject(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
@@ -171,7 +192,7 @@ public abstract class GameObject {
      * Checks if GameObject is intersecting another GameObject
      * by generating a "hit box" for each object.
      * Use displayHitBox() to visually see the hit box of a GameObject
-     * @param object
+     * @param object the object to check if touching
      * @see pizza.Pizza.displayHitBox
      * @return true if touching, false otherwise
      */
@@ -185,10 +206,10 @@ public abstract class GameObject {
 
     /**
      * Returns an array of points of the quickest path to a point
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
+     * @param x1 start x coordinate
+     * @param y1 start y coordinate
+     * @param x2 end x coordinate
+     * @param y2 end y coordinate
      * @return array of Point objects
      * @see java.awt.Point
      */
@@ -204,8 +225,7 @@ public abstract class GameObject {
         
         float x = x1;
         float y = y1;
-        for (int i = 0; i <= steps; i++)
-        {
+        for (int i = 0; i <= steps; i++) {
             points.add(new Point(Math.round(x), Math.round(y)));
             x += Xinc;
             y += Yinc;
@@ -319,46 +339,109 @@ public abstract class GameObject {
         movable = false;
     }
 
+    /**
+     * Updates all objects passed into the method as an ArrayList using a collision algorithm
+     * @param objects 
+     */
     protected void checkImpact(ArrayList<GameObject> objects) {
+        boolean touch = false;
+        touching = false;
+        boolean tryX;
+
         for (GameObject object : objects) {
             if (isTouching(object) && object != this) {
-                if (getY() + getHeight() <= object.getY() || getY() >= object.getY() + object.getHeight()) {
-                    if (getY() + getHeight() <= object.getY()) {
-                        blockY = 1;
-                        blockX = 0;
-                        velocity = 0;
-                        landed = true;
-                    }
-                    if (getY() >= object.getY() + object.getHeight()) {
-                        blockY = -1;
-                        blockX = 0;
-                    }
-                } else if (getX() + getWidth() <= object.getX() || getX() >= object.getX() + object.getWidth()) {
-                    if (getX() + getWidth() <= object.getX()) {
-                        blockX = 1;
-                        blockY = 0;
-                    }
-                    if (getX() >= object.getX() + getWidth()) {
-                        blockX = -1;
-                        blockY = 0;
-                    }
-                } else {
+                touching = true;
+                touch = true;
+                tryX = false;
+                //System.out.println("touch");
+                if (getX() + getWidth() > object.getX() && getX() + getWidth() < object.getX() + object.getWidth()) {
+                    tryX = true;
+                }
+                
+                if (getX() + getWidth() <= object.getX()) {
+                    blockX = 1;
+                    touch = true;
+                } else if (getX() >= object.getX() + object.getWidth()) {
+                    blockX = -1;
+                    touch = true;
+                }
+                if (getY() + getHeight() > object.getY() && getY() + getHeight() < object.getY() + object.getHeight() && blockX == 0) {
                     setY(object.getY() - getHeight());
+                    touch = true;
+                }
+                if (object.velocity != 0) {
+                    blockX = -1;
+                }
+                if (getY() + getHeight() <= object.getY()) {
                     velocity = 0;
                     landed = true;
+                    blockY = 1;
+                    touch = true;
+                } else if (getY() >= object.getY() + object.getHeight()) {
+                    blockY = -1;
+                    touch = true;
+                }
+
+                if (tryX && blockY == 0) {
+                    setX(object.getX() - getWidth());
                 }
             }
+        }
 
-            if (!isTouching(object) && object != this) {
-                blockX = 0;
-                blockY = 0;
-                landed = false;
-            }
+        if (!touch) {
+            blockX = 0;
+            blockY = 0;
+            landed = false;
         }
     }
 
+    /**
+     * @return {@code true} if object has landed, {@code false} otherwise
+     */
     public boolean isLanded() {
         return landed;
+    }
+
+    /**
+     * Displays the object's data at the default (10, 15)
+     * <p>
+     * <b>Must be run in the {@code draw} method of a GameObject or Operator</b>
+     * @param g Graphics object given by the {@code draw()} method
+     */
+    public void displayData(Graphics g) {
+        drawData(g, 0, 0);
+    }
+
+    /**
+     * Displays the object's data at the default (10, 15) plus the offset coordinates
+     * <p>
+     * <b>Must be run in the {@code draw} method of a GameObject or Operator</b>
+     * @param g Graphics object given by the {@code draw()} method
+     * @param x offset X
+     * @param y offset Y
+     */
+    public void displayData(Graphics g, int x, int y) {
+        drawData(g, x, y);
+    }
+
+    /**
+     * Draws data to window
+     * @param g Graphics object given by the {@code draw()} method
+     * @param offsetX
+     * @param offsetY
+     */
+    private void drawData(Graphics g, int offsetX, int offsetY) {
+        g.setColor(Color.WHITE);
+        g.drawString("X: " + x + ", Y: " + y, 10 + offsetX, 15 + offsetY);
+        g.drawString("Width: " + width + ", Height: " + height, 10 + offsetX, 30 + offsetY);
+        g.drawString("Velocity: " + velocity, 10 + offsetX, 45 + offsetY);
+        g.drawString("Acceleration: " + acceleration, 10 + offsetX, 60 + offsetY);
+        g.drawString("Dragging: " + dragging, 10 + offsetX, 75 + offsetY);
+        g.drawString("Movable: " + movable, 10 + offsetX, 90 + offsetY);
+        g.drawString("Landed: " + landed, 10 + offsetX, 105 + offsetY);
+        g.drawString("Block-X: " + blockX, 10 + offsetX, 120 + offsetY);
+        g.drawString("Block-Y: " + blockY, 10 + offsetX, 135 + offsetY);
+        g.drawString("Touching Object: " + touching, 10 + offsetX, 150 + offsetY);
     }
 
     /**

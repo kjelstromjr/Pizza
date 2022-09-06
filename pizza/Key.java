@@ -1,3 +1,10 @@
+/**
+ * This file includes all constructors and methods for handling keyboard inputs
+ * 
+ * @author Jeffrey Kjelstrom
+ * @version September 6, 2022
+ */
+
 package pizza;
 
 import java.awt.event.KeyEvent;
@@ -11,19 +18,35 @@ public class Key implements KeyListener {
     private static LinkedList<Integer> addKeys = new LinkedList<Integer>();
     private static LinkedList<Integer> removeKeys = new LinkedList<Integer>();
 
+    /**
+     * Default contructor
+     * @param frame JFrame from Window class
+     * @see {@link pizza.Window}
+     */
     public Key(JFrame frame) {
         frame.addKeyListener(this);
     }
 
+    /**
+     * Runs when a key is typed
+     * <p>
+     * <b>Currently not used</b>
+     */
     @Override
     public void keyTyped(KeyEvent e) {
     }
 
+    /**
+     * Runs when a key is pressed
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         addKeys.add(e.getKeyCode());
     }
 
+    /**
+     * Runs when a key is released
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         removeKeys.add(e.getKeyCode());
@@ -60,7 +83,6 @@ public class Key implements KeyListener {
     /**
      * Updates which keys are and are not pressed.
      * Automatically used by engine.
-     * NOT recommended to use.
      */
     public static void updateKeys() {
         for (int i = 0; i < addKeys.size(); i++) {

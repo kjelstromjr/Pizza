@@ -1,3 +1,10 @@
+/**
+ * This file includes all constructors and methods for the window
+ * 
+ * @author Jeffrey Kjelstrom
+ * @version September 6, 2022
+ */
+
 package pizza;
 
 import javax.swing.JFrame;
@@ -10,6 +17,9 @@ public class Window {
     public static int WIDTH, HEIGHT;
     public JFrame frame;
     
+    /**
+     * Defualt contructor 
+     */
     public Window() {
         frame = new JFrame();
 
@@ -30,6 +40,10 @@ public class Window {
         });
     }
 
+    /**
+     * Constructor with fullscreen
+     * @param fullScreen {@code true} fullscreen, {@code false} not fullscreen
+     */
     public Window(boolean fullScreen) {
         frame = new JFrame();
 
@@ -51,6 +65,10 @@ public class Window {
         });
     }
 
+    /**
+     * Gets the JFrame object of window
+     * @return JFrame object
+     */
     public JFrame getFrame() {
         return frame;
     }
