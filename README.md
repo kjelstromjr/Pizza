@@ -23,6 +23,7 @@ A good enough knowledge in the java programming language is required in order to
   - Operators are similar to GameObjects except that they do not have a draw method. Operators can be used to run logic that isn't necessarily connected to one GameObject.
 - Added `stop()` to `Pizza.java`
 - Changed default tick speed to 1 (was 2)
+
 **2/14/2022**
 - Added impact methods (`impactable()` and `notImpactable()`)
   - Methods are implemented similar to `runGravity()` and `draggable()`
