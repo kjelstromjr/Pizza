@@ -2,7 +2,7 @@
  * This file includes all constructors and methods for the GameOject class
  * 
  * @author Jeffrey Kjelstrom
- * @version September 6, 2022
+ * @version September 7, 2022
  */
 
 package pizza;
@@ -10,7 +10,9 @@ package pizza;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Font;
 import java.util.ArrayList;
+import java.awt.image.BufferedImage;
 
 public abstract class GameObject {
     private int x, y, width, height;
@@ -408,8 +410,8 @@ public abstract class GameObject {
      * <b>Must be run in the {@code draw} method of a GameObject or Operator</b>
      * @param g Graphics object given by the {@code draw()} method
      */
-    public void displayData(Graphics g) {
-        drawData(g, 0, 0);
+    public void displayData() {
+        drawData(0, 0);
     }
 
     /**
@@ -420,8 +422,8 @@ public abstract class GameObject {
      * @param x offset X
      * @param y offset Y
      */
-    public void displayData(Graphics g, int x, int y) {
-        drawData(g, x, y);
+    public void displayData(int x, int y) {
+        drawData(x, y);
     }
 
     /**
@@ -430,7 +432,8 @@ public abstract class GameObject {
      * @param offsetX
      * @param offsetY
      */
-    private void drawData(Graphics g, int offsetX, int offsetY) {
+    private void drawData(int offsetX, int offsetY) {
+        Graphics g = Pizza.getGraphicsObject();
         g.setColor(Color.WHITE);
         g.drawString("X: " + x + ", Y: " + y, 10 + offsetX, 15 + offsetY);
         g.drawString("Width: " + width + ", Height: " + height, 10 + offsetX, 30 + offsetY);
@@ -445,16 +448,143 @@ public abstract class GameObject {
     }
 
     /**
+     * Draws a filled rectangle with the GameObject's x, y, width, and height
+     */
+    public void fillRect() {
+        Graphics g = Pizza.getGraphicsObject();
+        g.setColor(Color.RED);
+        g.fillRect(x, y, width, height);
+    }
+
+    /**
+     * Draws a filled rectangle with the GameObject's x, y, width, and height with the given color
+     * @param color
+     */
+    public void fillRect(Color color) {
+        Graphics g = Pizza.getGraphicsObject();
+        g.setColor(color);
+        g.fillRect(x, y, width, height);
+    }
+
+    /**
+     * Draws a hallow rectangle with the GameObject's x, y, width, and height
+     */
+    public void drawRect() {
+        Graphics g = Pizza.getGraphicsObject();
+        g.setColor(Color.RED);
+        g.drawRect(x, y, width, height);
+    }
+
+    /**
+     * Draws a hallow rectangle with the GameObject's x, y, width, and height with the given color
+     * @param color
+     */
+    public void drawRect(Color color) {
+        Graphics g = Pizza.getGraphicsObject();
+        g.setColor(color);
+        g.drawRect(x, y, width, height);
+    }
+
+    /**
+     * Draws a filled ellipse with the GameObject's x, y, width, and height
+     */
+    public void fillEllipse() {
+        Graphics g = Pizza.getGraphicsObject();
+        g.setColor(Color.RED);
+        g.fillOval(x, y, width, height);
+    }
+
+    /**
+     * Draws a filled ellipse with the GameObject's x, y, width, and height with the given color
+     * @param color
+     */
+    public void fillEllipse(Color color) {
+        Graphics g = Pizza.getGraphicsObject();
+        g.setColor(color);
+        g.fillOval(x, y, width, height);
+    }
+
+    /**
+     * Draws a hallow ellipse with the GameObject's x, y, width, and height
+     */
+    public void drawEllipse() {
+        Graphics g = Pizza.getGraphicsObject();
+        g.setColor(Color.RED);
+        g.drawOval(x, y, width, height);
+    }
+
+    /**
+     * Draws a hallow ellipse with the GameObject's x, y, width, and height with the given color
+     * @param color
+     */
+    public void drawEllipse(Color color) {
+        Graphics g = Pizza.getGraphicsObject();
+        g.setColor(color);
+        g.drawOval(x, y, width, height);
+    }
+
+    /**
+     * Draws text with the GameObject's x, y, width, and height
+     * @param text
+     */
+    public void drawText(String text) {
+        Graphics g = Pizza.getGraphicsObject();
+        g.setColor(Color.WHITE);
+        g.drawString(text, x, y);
+    }
+
+    /**
+     * Draws text with the GameObject's x, y, width, and height with the given color
+     * @param text
+     * @param color
+     */
+    public void drawText(String text, Color color) {
+        Graphics g = Pizza.getGraphicsObject();
+        g.setColor(color);
+        g.drawString(text, x, y);
+    }
+
+    /**
+     * Draws text with the GameObject's x, y, width, and height with the given color and font
+     * @param text
+     * @param color
+     * @param font
+     */
+    public void drawText(String text, Color color, Font font) {
+        Graphics g = Pizza.getGraphicsObject();
+        g.setColor(color);
+        g.setFont(font);
+        g.drawString(text, x, y);
+    }
+
+    /**
+     * Draws a given BufferedImage with the GameObject's x and y
+     * <p>
+     * Use Util.generateBufferedImage to load image
+     * @param image
+     * @see pizza.Util.generateBufferedImage
+     */
+    public void drawImage(BufferedImage image) {
+        Graphics g = Pizza.getGraphicsObject();
+        g.drawImage(image, x, y, null);
+    }
+
+    /**
      * Use this method to make any changes to the individal GameObject.
+     * <p>
      * Automatically run by engine.
      */
     public abstract void update();
 
     /**
-     * Use methods in the Graphics g object to draw the GameObject onto the JFrame.
-     * Make sure that java.awt.Graphics is imported.
+     * Use methods in the GameObject to draw shapes, text, and images to the window. e.g. fillRect()
+     * <p>
+     * You can use methods in the Graphics g object to draw more complex shapes onto the JFrame.
+     * <p>
+     * To get the Graphics g object, use Pizza.getGraphicsObject
+     * <p>
      * Automatically run by engine.
-     * @param g
+     * @see pizza.Pizza.getGraphicsObject
      */
-    public abstract void draw(Graphics g);
+    public abstract void draw();
 }

@@ -1,4 +1,12 @@
+/**
+ * This is the main file for the game. It initalizes the game, and creates all starting GameObjects
+ * 
+ * @author Jeffrey Kjelstrom
+ * @version September 7, 2022
+ */
+
 package Game;
+
 import pizza.Pizza;
 
 public class Game {

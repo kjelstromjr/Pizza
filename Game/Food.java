@@ -1,6 +1,13 @@
+/**
+ * This file defines the GameObject for the food used in the game
+ * 
+ * @author Jeffrey Kjelstrom
+ * @version September 7, 2022
+ */
+
 package Game;
+
 import java.awt.Color;
-import java.awt.Graphics;
 import pizza.GameObject;
 import pizza.Window;
 
@@ -29,10 +36,9 @@ public class Food extends GameObject {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw() {
         // Draws a white circle on the window
-        g.setColor(Color.WHITE);        
-        g.fillOval(getX(), getY(), getWidth(), getHeight());
+        fillEllipse(Color.WHITE);
     }
     
 }

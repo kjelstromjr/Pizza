@@ -1,7 +1,14 @@
+/**
+ * This program moves a red sqaure across the screen when the user presses the w, a, s, and d, keys
+ * 
+ * @author Jeffrey Kjelstrom
+ * @version September 7, 2022
+ */
+
 package Intro;
+
 import pizza.*;
 import java.awt.Color;
-import java.awt.Graphics;
 
 public class Main {
     public static void main(String[] args) {
@@ -41,25 +48,30 @@ public class Main {
             @Override
             public void update() {
 
+                // The color of the square will change when clicked on
                 if (isPressed()) {
                     color = Color.BLUE;
                 } else {
                     color = Color.RED;
                 }
 
-                
+                // The square will be moved based on the w, a, s, and d keys
+                // W
                 if (Key.isKeyPressed(87)) {
                     setY(getY() - speed);
                 }
 
+                // S
                 if (Key.isKeyPressed(83)) {
                     setY(getY() + speed);
                 }
 
+                // A
                 if (Key.isKeyPressed(65)) {
                     setX(getX() - speed);
                 }
 
+                // D
                 if (Key.isKeyPressed(68)) {
                     setX(getX() + speed);
                 }
@@ -70,9 +82,9 @@ public class Main {
             * Use this method to draw out how the object looks using methods in the Graphics object provided by the method
             */
             @Override
-            public void draw(Graphics g) {
-                g.setColor(color);
-                g.fillRect(getX(), getY(), getWidth(), getHeight()); 
+            public void draw() {
+                // A filled rectangle will be drawn with the current color
+                fillRect(color);
             }
         };
         

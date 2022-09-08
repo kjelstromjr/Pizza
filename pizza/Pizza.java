@@ -14,13 +14,14 @@ import java.awt.image.BufferStrategy;
 
 public class Pizza implements Runnable {
 
-    static JFrame frame;
+    private static JFrame frame;
     public static Thread thread;
-    boolean running;
+    private boolean running;
     public Window w;
-    Color backgroundColor = Color.BLACK;
+    private Color backgroundColor = Color.BLACK;
     private int tickSpeed = 1;
-    boolean key = false;
+    private boolean key = false;
+    private static Graphics g;
     
     /**
      * Default constructor
@@ -50,6 +51,7 @@ public class Pizza implements Runnable {
         w = new Window(true);
         frame = w.frame;
         start();
+        Math.sin(0.0);
     }
 
     /**
@@ -114,7 +116,7 @@ public class Pizza implements Runnable {
             w.frame.createBufferStrategy(2);
             return;
         }
-        Graphics g = bs.getDrawGraphics();
+        g = bs.getDrawGraphics();
         g.setColor(backgroundColor);
         g.fillRect(0, 0, Window.WIDTH + 10, Window.HEIGHT);
         Handler.draw(g);
@@ -196,5 +198,9 @@ public class Pizza implements Runnable {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static Graphics getGraphicsObject() {
+        return g;
     }
 }

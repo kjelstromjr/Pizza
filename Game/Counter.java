@@ -1,5 +1,12 @@
+/**
+ * This file defines the GameObject for the counter used in the game
+ * 
+ * @author Jeffrey Kjelstrom
+ * @version September 7, 2022
+ */
+
 package Game;
-import java.awt.Graphics;
+
 import java.awt.Color;
 import java.awt.Font;
 import pizza.GameObject;
@@ -26,10 +33,8 @@ public class Counter extends GameObject {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw() {
         // Draws white text on the screen
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Arial Black", Font.BOLD, 20));
-        g.drawString("Eaten: " + count, getX(), getY());
+        drawText("Eaten: " + count, Color.WHITE, new Font("Arial Black", Font.BOLD, 20));
     }
 }

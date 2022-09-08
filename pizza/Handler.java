@@ -43,7 +43,7 @@ public class Handler {
      */
     public static void draw(Graphics g) {
         for (GameObject object : objects) {
-            object.draw(g);
+            object.draw();
             if (displayHitBox) {
                 g.setColor(Color.BLUE);
                 g.drawRect(object.getX(), object.getY(), object.getWidth(), object.getHeight());
