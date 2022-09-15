@@ -5,9 +5,9 @@ A good enough knowledge in the java programming language is required in order to
 ## Getting Started
 **Examples provided**
 - The entire game engine can be started just by simply creating an instance of the `Pizza` class, e.g. `Pizza game = new Pizza();`
-  - A title can be added to the window by passing a String
+  - A title can be added to the window by passing a String, e.g. `Pizza game = new Pizza("My Game");`
   - The background color of the window can be changed by inputting a color from the `java.awt.Color` class into the pizza contructor, e.g. `Pizza game = new Pizza(Color.BLUE);`
-  - To run in fullscreen, just add a `true` to the end of the arguments in the constructor, e.g. `Pizza game = new Pizza(true)` or `Pizza game = new Pizza(Color.BLUE, true)`
+  - To run in fullscreen, just add a `true` to the end of the arguments in the constructor, e.g. `Pizza game = new Pizza(true)` or `Pizza game = new Pizza(Color.BLUE, true);`
 - Items can be drawn onto the window by creating a new GameObject and by adding it to the handler
   - GameObject objects require an `update()` and `draw()` method
   - GameObjects can be created solo, like shown in Intro, or can be extended by another class, like shown in Game
