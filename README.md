@@ -26,8 +26,8 @@ A good enough knowledge in the java programming language is required in order to
   - All examples have been updated accordingly
 - The Graphics object is now statically accessable through `Pizza.getGraphicsObject`
 - The Util class has been created
-  - `generateBufferedImage()` takes a path as a String and returns a BufferedImage object associated with that path
-
+  - `generateBufferedImage()` takes a path as a String and returns a BufferedImage object associated with that path. (used for drawing images)
+## Older Updates
 **9/6/2022**
 - Updated collision algorithm
 - Added another GameObject to Gravity.java to show improvements
