@@ -2,7 +2,7 @@
  * This is the main class for the Pizza game engine. This includes constructors and methods associated with the main game
  * 
  * @author Jeffrey Kjelstrom
- * @verison September 6, 2022
+ * @verison September 14, 2022
  */
 
 package pizza;
@@ -12,22 +12,32 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import java.awt.image.BufferStrategy;
 
-public class Pizza implements Runnable {
+public class Pizza {
 
     private static JFrame frame;
     public static Thread thread;
-    private boolean running;
     public Window w;
     private Color backgroundColor = Color.BLACK;
-    private int tickSpeed = 1;
-    private boolean key = false;
+    protected static boolean key = false;
     private static Graphics g;
     
     /**
      * Default constructor
+     * <p>
+     * Default title "Game"
      */
     public Pizza() {
         w = new Window();
+        frame = w.frame;
+        start();
+    }
+
+    /**
+     * Constructor for adding a title
+     * @param title
+     */
+    public Pizza(String title) {
+        w = new Window(title);
         frame = w.frame;
         start();
     }
@@ -44,10 +54,32 @@ public class Pizza implements Runnable {
     }
 
     /**
+     * Constructor for changing the background color and adding a title
+     * @param backgroundColor
+     */
+    public Pizza(String title, Color backgroundColor) {
+        w = new Window(title);
+        frame = w.frame;
+        this.backgroundColor = backgroundColor;
+        start();
+    }
+
+    /**
      * Constructor for putting the game into fullscreen
      * @param fullScreen
      */
     public Pizza(boolean fullScreen) {
+        w = new Window(true);
+        frame = w.frame;
+        start();
+        Math.sin(0.0);
+    }
+
+    /**
+     * Constructor for putting the game into fullscreen and adding a title
+     * @param fullScreen
+     */
+    public Pizza(String title, boolean fullScreen) {
         w = new Window(true);
         frame = w.frame;
         start();
@@ -66,39 +98,50 @@ public class Pizza implements Runnable {
     }
 
     /**
+     * Constructor for putting the game into fullscreen and changing the background color and adding a title
+     * @param backgroundColor
+     * @param fullScreen
+     */
+    public Pizza(String title, Color backgroundColor, boolean fullScreen) {
+        w = new Window(true);
+        frame = w.frame;
+        start();
+    }
+
+    /**
      * Starts the game by adding it to a new Thread and starting the game loop
      */
     public synchronized void start() {
-        thread = new Thread(this);
-        thread.start();
-        running = true;
+        Thread tickThread = new Thread(new Tick());
+        Thread renderThread = new Thread(new Render(backgroundColor, w));
+        tickThread.start();
+        renderThread.start();
     }
 
     /**
      * Ends the game loop
      */
     public synchronized void stop() {
-        running = false;
     }
 
     /**
      * Runs the main game loop
      */
-    @Override
-    public void run() {
-        while (running) {
-            try {
-                Thread.sleep(tickSpeed);
-                if (key) {
-                    Key.updateKeys();
-                }
-                update();
-                draw();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+    // @Override
+    // public void run() {
+    //     while (running) {
+    //         try {
+    //             Thread.sleep(tickSpeed);
+    //             if (key) {
+    //                 Key.updateKeys();
+    //             }
+    //             update();
+    //             draw();
+    //         } catch (InterruptedException e) {
+    //             e.printStackTrace();
+    //         }
+    //     }
+    // }
 
     /**
      * Updates all GameObjects and Operators stored in the Handler
@@ -168,7 +211,7 @@ public class Pizza implements Runnable {
      * @param speed
      */
     public void setTickSpeed(int speed) {
-        tickSpeed = speed;
+        Tick.setTickSpeed(speed);
     }
 
     /**
@@ -202,5 +245,9 @@ public class Pizza implements Runnable {
 
     public static Graphics getGraphicsObject() {
         return g;
+    }
+
+    protected static void setGraphicsObject(Graphics gr) {
+        g = gr;
     }
 }

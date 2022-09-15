@@ -2,7 +2,7 @@
  * This file includes all methods for handling GameObjects and Operators
  * 
  * @author Jeffrey Kjelstrom
- * @version September 6, 2022
+ * @version September 14, 2022
  */
 
 package pizza;
@@ -19,21 +19,24 @@ public class Handler {
     static ArrayList<Operator> operators = new ArrayList<Operator>();
     static ArrayList<Operator> removeOperators = new ArrayList<Operator>();
     static boolean displayHitBox = false;
+    private static boolean isRemoving = false;
 
     /**
      * Updates all GameObjects and Operators
      */
     public static void update() {
-        for (GameObject object : objects) {
-            object.update();
-        }
+        if (!isRemoving) {
+            for (GameObject object :  objects) {
+                object.update();
+            }
 
-        for (GameObject object : impact) {
-            object.checkImpact(impact);
-        }
-
-        for (Operator operator : operators) {
-            operator.update();
+            for (GameObject object : impact) {
+                object.checkImpact(impact);
+            }
+    
+            for (Operator operator : operators) {
+                operator.update();
+            }
         }
     }
 
@@ -51,16 +54,21 @@ public class Handler {
         }
 
         for (int i = 0; i < remove.size(); i++) {
+            isRemoving = true;
             objects.remove(remove.get(i));
         }
 
         for (int i = 0; i < removeImpact.size(); i++) {
+            isRemoving = true;
             impact.remove(removeImpact.get(i));
         }
 
         for (int i = 0; i < removeOperators.size(); i++) {
+            isRemoving = true;
             operators.remove(removeOperators.get(i));
         }
+
+        isRemoving = false;
 
         remove.clear();
         removeImpact.clear();

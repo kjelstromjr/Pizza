@@ -2,7 +2,7 @@
  * This file includes all constructors and methods for the GameOject class
  * 
  * @author Jeffrey Kjelstrom
- * @version September 7, 2022
+ * @version September 14, 2022
  */
 
 package pizza;
@@ -295,7 +295,7 @@ public abstract class GameObject {
             velocity = 0;
         }
 
-        if (Mouse.getMouseState().equals("Released")) {
+        if (isReleased()) {
             dragging = false;
         }
 
@@ -567,6 +567,32 @@ public abstract class GameObject {
     public void drawImage(BufferedImage image) {
         Graphics g = Pizza.getGraphicsObject();
         g.drawImage(image, x, y, null);
+    }
+
+    /**
+     * Runs the default movments for the w, a, s, and d keys
+     * @param speed
+     */
+    public void keyWASD(int speed) {
+        // W
+        if (Key.isKeyPressed(87)) {
+            setY(getY() - speed);
+        }
+
+        // S
+        if (Key.isKeyPressed(83)) {
+            setY(getY() + speed);
+        }
+
+        // A
+        if (Key.isKeyPressed(65)) {
+            setX(getX() - speed);
+        }
+
+        // D
+        if (Key.isKeyPressed(68)) {
+            setX(getX() + speed);
+        }
     }
 
     /**

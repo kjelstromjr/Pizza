@@ -2,7 +2,7 @@
  * This program moves a red sqaure across the screen when the user presses the w, a, s, and d, keys
  * 
  * @author Jeffrey Kjelstrom
- * @version September 7, 2022
+ * @version September 14, 2022
  */
 
 package Intro;
@@ -14,9 +14,10 @@ public class Main {
     public static void main(String[] args) {
         /*
         *   Initializes and Declares the Pizza object, creating a window for the game and starting the engine
+        *   Pass a String to add a title
         *   Add a color in the constructor, using the java.awt.Color class, to change the background color
         */
-        Pizza game = new Pizza();
+        Pizza game = new Pizza("Intro");
         /*
         *   Starts a listener for any keyboard changes
         *   Accessed staticaly throught the pizza.Key class

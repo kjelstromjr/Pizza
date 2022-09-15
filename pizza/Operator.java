@@ -1,13 +1,18 @@
 /**
  * This file includes all constructors and methods for an operator
+ * 
+ * @author Jeffrey Kjelstrom
+ * @version September 14, 2022
  */
 
 package pizza;
 
+import java.util.Date;
+
 public class Operator {
     private int waitTime = 0;
-    private int startTime = 0;
     private Operation operation;
+    private long currTime;
 
     /**
      * Default constructor
@@ -20,20 +25,19 @@ public class Operator {
     /**
      * Contructor for the operation and wait time
      * @param operation code to be run
-     * @param waitTime amount of time before running
+     * @param waitTime amount of time before running (miliseconds)
      */
     public Operator(Operation operation, int waitTime) {
         this.operation = operation;
-        this.waitTime = waitTime / 10;
-        startTime = waitTime / 10;
+        this.waitTime = waitTime;
+        Date date = new Date();
+        currTime = date.getTime();
     }
 
     protected void update() {
-        if (waitTime > 0) {
-            waitTime--;
-        } else {
+        if (new Date().getTime() >= currTime + waitTime) {
             operation.operate();
-            waitTime = startTime;
+            currTime = new Date().getTime();
         }
     }
 }
