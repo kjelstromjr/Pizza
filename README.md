@@ -1,5 +1,5 @@
 # Pizza
-Simple game engine for java programs
+Simple 2D game engine for java programs
 ## **WARNING** 
 A good enough knowledge in the java programming language is required in order to use and understand this package!!! If you DO NOT know java, and still want to use this, then you are a total dingus and need to learn java. If you DO know java, welcome to the github!
 ## Getting Started
