@@ -12,7 +12,7 @@ A good enough knowledge in the java programming language is required in order to
   - GameObject objects require an `update()` and `draw()` method
   - GameObjects can be created solo, like shown in Intro, or can be extended by another class, like shown in Game
   - In order for objects to be updated and drawn, they must be added to the game using `[yourgame].addObject(GameObject object);`
-  - Don't forget to ask any questions that you may have in the discussions!
+- Don't forget to ask any questions that you may have in the discussions!
 ## Update: 9/14/2022
 - The updating and drawing of the game are now both on separate Threads!!!
 - The SpriteList class has been created, simplifying the use of sprites in the game!!!
